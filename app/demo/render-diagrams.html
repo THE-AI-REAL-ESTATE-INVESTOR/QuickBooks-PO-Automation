@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickBooks Automation - Diagrams</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    
+    .diagram-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      color: #2a5885;
+      text-align: center;
+    }
+    
+    h2 {
+      color: #555;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+    }
+    
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    
+    button {
+      background-color: #2a5885;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    
+    button:hover {
+      background-color: #1c3f5e;
+    }
+    
+    .download-hint {
+      text-align: center;
+      color: #666;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>QuickBooks PO Automation - Visualization Diagrams</h1>
+  
+  <p class="download-hint">To save these diagrams for your presentation, you can take screenshots or right-click and save images after they've rendered.</p>
+  
+  <div class="diagram-container">
+    <h2>Basic Workflow</h2>
+    <div class="mermaid">
+flowchart TD
+    A[Purchase Order Document] -->|Input| B[Document Processing]
+    B -->|OCR/Text Extraction| C[OpenRouter AI]
+    C -->|Structured Data| D[Data Validation]
+    D -->|Validated Data| E[Data Enrichment]
+    E -->|Enriched PO Data| F[QuickBooks Integration]
+    F -->|Auto-populated| G[QuickBooks Desktop Enterprise]
+    
+    style A fill:#f9d5e5,stroke:#333,stroke-width:2px
+    style B fill:#eeeeee,stroke:#333,stroke-width:2px
+    style C fill:#b5ead7,stroke:#333,stroke-width:2px
+    style D fill:#c7ceea,stroke:#333,stroke-width:2px
+    style E fill:#fff8b8,stroke:#333,stroke-width:2px
+    style F fill:#e2f0cb,stroke:#333,stroke-width:2px
+    style G fill:#95c8d8,stroke:#333,stroke-width:2px
+    </div>
+  </div>
+  
+  <div class="diagram-container">
+    <h2>Detailed Technical Architecture</h2>
+    <div class="mermaid">
+flowchart TD
+    subgraph "Input Sources"
+        PDF[PDF Documents]
+        Email[Email Attachments]
+        Scan[Scanned Images]
+    end
+
+    subgraph "Document Processing"
+        OCR[OCR Technology\nTesseract.js]
+        Text[Text Extraction]
+    end
+
+    subgraph "AI Processing"
+        OR[OpenRouter API]
+        Claude[Claude-3-Opus]
+        NLP[NLP Analysis]
+    end
+
+    subgraph "Data Processing"
+        Valid[Data Validation]
+        Enrich[Data Enrichment]
+        Cat[Smart Categorization]
+    end
+
+    subgraph "QuickBooks Integration"
+        QBval[Data Mapping Validation]
+        Vendor[Vendor Creation/Matching]
+        Items[Item Creation/Matching]
+        PO[PO Creation]
+    end
+
+    subgraph "Output"
+        QB[QuickBooks Desktop Enterprise]
+        Report[Processing Report]
+        Dash[Analytics Dashboard]
+    end
+
+    PDF --> OCR
+    Email --> Text
+    Scan --> OCR
+    OCR --> OR
+    Text --> OR
+    OR --> Claude
+    Claude --> NLP
+    NLP --> Valid
+    Valid --> Enrich
+    Enrich --> Cat
+    Cat --> QBval
+    QBval --> Vendor
+    QBval --> Items
+    Vendor --> PO
+    Items --> PO
+    PO --> QB
+    PO --> Report
+    Report --> Dash
+
+    style PDF fill:#f9d5e5,stroke:#333,stroke-width:1px
+    style Email fill:#f9d5e5,stroke:#333,stroke-width:1px
+    style Scan fill:#f9d5e5,stroke:#333,stroke-width:1px
+    
+    style OCR fill:#eeeeee,stroke:#333,stroke-width:1px
+    style Text fill:#eeeeee,stroke:#333,stroke-width:1px
+    
+    style OR fill:#b5ead7,stroke:#333,stroke-width:1px
+    style Claude fill:#b5ead7,stroke:#333,stroke-width:1px
+    style NLP fill:#b5ead7,stroke:#333,stroke-width:1px
+    
+    style Valid fill:#c7ceea,stroke:#333,stroke-width:1px
+    style Enrich fill:#c7ceea,stroke:#333,stroke-width:1px
+    style Cat fill:#c7ceea,stroke:#333,stroke-width:1px
+    
+    style QBval fill:#e2f0cb,stroke:#333,stroke-width:1px
+    style Vendor fill:#e2f0cb,stroke:#333,stroke-width:1px
+    style Items fill:#e2f0cb,stroke:#333,stroke-width:1px
+    style PO fill:#e2f0cb,stroke:#333,stroke-width:1px
+    
+    style QB fill:#95c8d8,stroke:#333,stroke-width:1px
+    style Report fill:#95c8d8,stroke:#333,stroke-width:1px
+    style Dash fill:#95c8d8,stroke:#333,stroke-width:1px
+    </div>
+  </div>
+  
+  <div class="diagram-container">
+    <h2>Business Value & Implementation Timeline</h2>
+    <div class="mermaid">
+graph TD
+    subgraph "Business Value"
+        Time["⏱️ Time Savings
+        80% reduction in manual data entry"]
+        Acc["✓ Accuracy
+        95% data extraction accuracy"]
+        Cost["💰 Cost Reduction
+        50% reduction in accounting hours"]
+        Scale["📈 Scalability
+        Handle 5x more POs without adding staff"]
+        Error["❌ Error Reduction
+        90% fewer data entry errors"]
+    end
+    
+    subgraph "Implementation Timeline"
+        Setup["Week 1-2:
+        Initial Setup"]
+        Custom["Week 3-4:
+        Customization"]
+        Test["Week 5:
+        Testing & Optimization"]
+        Deploy["Week 6:
+        Deployment & Training"]
+    end
+    
+    Setup --> Custom --> Test --> Deploy
+    Deploy --> Time
+    Deploy --> Acc
+    Deploy --> Cost
+    Deploy --> Scale
+    Deploy --> Error
+    
+    style Time fill:#d4f1f9,stroke:#333,stroke-width:1px
+    style Acc fill:#d4f1f9,stroke:#333,stroke-width:1px
+    style Cost fill:#d4f1f9,stroke:#333,stroke-width:1px
+    style Scale fill:#d4f1f9,stroke:#333,stroke-width:1px
+    style Error fill:#d4f1f9,stroke:#333,stroke-width:1px
+    
+    style Setup fill:#ffcccc,stroke:#333,stroke-width:1px
+    style Custom fill:#ffcccc,stroke:#333,stroke-width:1px
+    style Test fill:#ffcccc,stroke:#333,stroke-width:1px
+    style Deploy fill:#ffcccc,stroke:#333,stroke-width:1px
+    </div>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      securityLevel: 'loose',
+      fontFamily: 'Segoe UI, sans-serif'
+    });
+  </script>
+</body>
+</html> 

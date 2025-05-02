@@ -1,0 +1,43 @@
+
+PURCHASE ORDER
+
+PO Number: PO-2023-11-01
+Date: November 1, 2023
+
+VENDOR:
+LuxuryTextiles International
+78 Fashion Avenue
+Milan, MI 20121
+Email: orders@luxurytextiles.com
+
+SHIP TO:
+Haute Couture Designs
+123 Designer Row
+Fashion District, NY 10018
+
+ITEMS:
+SKU: LT-SILK-PREMIUM-001
+Description: Premium Italian Silk - Scarlet Red
+Quantity: 75 yards
+Unit Price: $68.50
+Amount: $5,137.50
+
+SKU: LT-LACE-FRENCH-002
+Description: Handcrafted French Lace - Ivory
+Quantity: 40 yards
+Unit Price: $95.75
+Amount: $3,830.00
+
+SKU: LT-WOOL-CASHMERE-003
+Description: Cashmere Wool Blend - Midnight Blue
+Quantity: 60 yards
+Unit Price: $112.25
+Amount: $6,735.00
+
+Subtotal: $15,702.50
+Tax (6.5%): $1,020.66
+Total: $16,723.16
+
+Payment Terms: Net 45
+Notes: Priority shipping required for upcoming winter collection
+  

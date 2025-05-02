@@ -1,0 +1,12 @@
+{
+  "name": "pdf-maker",
+  "version": "1.0.0",
+  "description": "PDF maker for QuickBooks PO Automation",
+  "main": "pdf-maker.js",
+  "scripts": {
+    "generate": "node pdf-maker.js"
+  },
+  "dependencies": {
+    "puppeteer": "^21.9.0"
+  }
+}

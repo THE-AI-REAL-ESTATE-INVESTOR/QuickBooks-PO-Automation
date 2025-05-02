@@ -1,0 +1,14 @@
+date,vendorName,category,description,amount,paymentMethod,reference
+2023-10-01,FashionFabrics Inc,Inventory,Premium Cotton Fabric,2500.00,ACH,INV-001234
+2023-10-03,BeautySupplies Co,Inventory,Makeup Kits - Fall Collection,4750.50,Credit Card,PO-567
+2023-10-05,StyleBox Packaging,Supplies,Custom Branded Boxes,1200.75,Check,CHK-987
+2023-10-08,Fashion Week LLC,Marketing,Runway Show Participation,8500.00,Wire Transfer,FW-2023-45
+2023-10-10,Studio Lights,Equipment,Photography Lighting Setup,3200.00,Credit Card,SL-10982
+2023-10-12,Cosmetic Chemicals,Raw Materials,Essential Oils Batch,1845.25,ACH,CC-7856
+2023-10-15,Model Agency Inc,Services,Product Photography Session,2750.00,Check,MA-45678
+2023-10-18,Shipping Express,Logistics,International Shipping,1675.50,Credit Card,SE-34267
+2023-10-20,Thread & Needle,Inventory,Sewing Supplies Bulk Order,925.75,ACH,TN-87651
+2023-10-22,Beauty Expo,Marketing,Exhibition Booth Rental,5500.00,Wire Transfer,BE-2023-11
+2023-10-25,Textile Importers,Inventory,Silk Fabric - Premium,6200.25,Check,TI-77823
+2023-10-28,Creative Designs,Services,Product Packaging Design,3750.00,Credit Card,CD-12345
+2023-10-30,Cosmetic Containers,Supplies,Lotion Bottles - 8oz,1870.50,ACH,CC-98712

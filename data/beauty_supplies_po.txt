@@ -1,0 +1,49 @@
+
+PURCHASE ORDER
+
+PO Number: PO-2023-11-10
+Date: November 10, 2023
+
+VENDOR:
+Organic Beauty Ingredients Co.
+456 Natural Way
+Portland, OR 97201
+Email: wholesale@organicbeauty.com
+
+SHIP TO:
+Radiance Cosmetics Lab
+789 Glow Street
+Los Angeles, CA 90210
+
+ITEMS:
+SKU: OB-ES-LAVENDER-004
+Description: Organic Lavender Essential Oil
+Quantity: 25 bottles
+Unit Price: $42.99
+Amount: $1,074.75
+
+SKU: OB-BUTTER-SHEA-005
+Description: Raw Unrefined Shea Butter - Organic
+Quantity: 50 kg
+Unit Price: $28.50
+Amount: $1,425.00
+
+SKU: OB-EXTRACT-ROSE-006
+Description: Rose Extract - Premium Quality
+Quantity: 15 liters
+Unit Price: $85.00
+Amount: $1,275.00
+
+SKU: OB-PACKAGING-ECO-007
+Description: Eco-Friendly Bamboo Containers
+Quantity: 1000 pcs
+Unit Price: $2.75
+Amount: $2,750.00
+
+Subtotal: $6,524.75
+Tax (9%): $587.23
+Total: $7,111.98
+
+Payment Terms: Net 30
+Notes: All ingredients must be certified organic with documentation
+  

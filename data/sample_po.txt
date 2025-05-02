@@ -1,0 +1,43 @@
+
+PURCHASE ORDER
+
+PO Number: PO-2023-10-15
+Date: October 15, 2023
+
+VENDOR:
+FashionFabrics Inc
+123 Textile Ave
+Fabric City, FC 12345
+Email: orders@fashionfabrics.com
+
+SHIP TO:
+Beauty & Fashion Co
+456 Style Blvd
+Fashion Town, FT 67890
+
+ITEMS:
+SKU: FF-COTTON-100
+Description: Premium Cotton Fabric - White
+Quantity: 100 yards
+Unit Price: $12.50
+Amount: $1,250.00
+
+SKU: FF-SILK-50
+Description: Luxury Silk Fabric - Black
+Quantity: 50 yards
+Unit Price: $25.00
+Amount: $1,250.00
+
+SKU: FF-BUTTONS-1000
+Description: Metal Buttons - Gold
+Quantity: 1000 pcs
+Unit Price: $0.45
+Amount: $450.00
+
+Subtotal: $2,950.00
+Tax (8%): $236.00
+Total: $3,186.00
+
+Payment Terms: Net 30
+Notes: Please deliver by October 30, 2023
+  

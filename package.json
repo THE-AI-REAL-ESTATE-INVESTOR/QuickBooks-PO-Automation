@@ -1,0 +1,29 @@
+{
+  "name": "qb-automation-mvp",
+  "version": "0.1.0",
+  "description": "AI-driven automation solution for QuickBooks Desktop Enterprise",
+  "main": "app/src/index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "ts-node --esm app/src/index.ts",
+    "demo": "node dist/demo/demo.js",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.3.1",
+    "node-quickbooks": "^2.0.43",
+    "openai": "^4.17.0",
+    "pdf-parse": "^1.1.1",
+    "tesseract.js": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.8.2",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+} 

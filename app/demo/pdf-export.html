@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickBooks PO Automation - PDF Export</title>
+  <!-- Add Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Add Mermaid for diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.0/dist/mermaid.min.js"></script>
+  <!-- Add our custom diagrams -->
+  <script src="mermaid-diagrams.js"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+    }
+    
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 20px 0;
+      border-bottom: 2px solid #2a5885;
+    }
+    
+    header h1 {
+      font-size: 2.5rem;
+      color: #2a5885;
+      margin: 10px 0;
+    }
+    
+    .section {
+      margin-bottom: 50px;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      page-break-inside: avoid;
+    }
+    
+    .section h2 {
+      font-size: 2rem;
+      color: #2a5885;
+      margin-top: 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .section h3 {
+      font-size: 1.5rem;
+      color: #2a5885;
+      margin-top: 20px;
+    }
+    
+    .two-col {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .col {
+      flex: 1;
+    }
+    
+    .card {
+      background: #f5f5f5;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .card h4 {
+      color: #2a5885;
+      margin-top: 0;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 8px;
+    }
+    
+    .feature-list {
+      list-style-type: none;
+      padding-left: 10px;
+    }
+    
+    .feature-list li {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .feature-list li:before {
+      content: "✓";
+      color: #4CAF50;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    
+    .mermaid-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    
+    .demo-container {
+      background: #2d2d2d;
+      color: #f1f1f1;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: monospace;
+      margin: 15px 0;
+      overflow: auto;
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    
+    .demo-line {
+      margin: 5px 0;
+      white-space: pre-wrap;
+    }
+    
+    .demo-success {
+      color: #4CAF50;
+    }
+    
+    .demo-highlight {
+      color: #2196F3;
+    }
+    
+    .demo-output {
+      color: #FFC107;
+    }
+    
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px 0;
+      position: relative;
+    }
+    
+    .timeline:before {
+      content: '';
+      position: absolute;
+      top: 25px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #2a5885;
+      z-index: 1;
+    }
+    
+    .timeline-item {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      width: 22%;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .timeline-item h4 {
+      margin: 0 0 10px 0;
+      color: #2a5885;
+    }
+    
+    .logo {
+      text-align: center;
+      margin: 30px 0;
+    }
+    
+    .qb-logo {
+      color: #2CA01C;
+      font-size: 40px;
+      margin-right: 10px;
+    }
+    
+    .qb-text {
+      font-size: 30px;
+      font-weight: bold;
+      color: #2CA01C;
+      vertical-align: middle;
+    }
+    
+    .plus-icon {
+      font-size: 30px;
+      margin: 0 15px;
+      color: #666;
+      vertical-align: middle;
+    }
+    
+    .ai-icon {
+      color: #7B68EE;
+      font-size: 40px;
+      vertical-align: middle;
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px 0;
+      border-top: 1px solid #ddd;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background-color: #2a5885;
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    
+    .cta-button i {
+      margin-right: 8px;
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+    
+    .sample-po {
+      font-family: monospace;
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      border: 1px solid #ddd;
+      margin: 20px 0;
+    }
+    
+    @media print {
+      body {
+        font-size: 12pt;
+      }
+      
+      .section {
+        page-break-inside: avoid;
+        border: 1px solid #ddd;
+        box-shadow: none;
+      }
+      
+      .demo-container {
+        border: 1px solid #ddd;
+        background-color: #f5f5f5;
+        color: #333;
+      }
+      
+      .demo-success {
+        color: #2a5885;
+        font-weight: bold;
+      }
+      
+      .demo-highlight {
+        color: #333;
+        font-weight: bold;
+      }
+      
+      .video-container {
+        height: 100px !important;
+        border: 1px solid #ddd;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        padding-bottom: 0 !important;
+      }
+      
+      .video-container iframe {
+        display: none;
+      }
+      
+      .video-container:after {
+        content: "Video available at: www.loom.com/share/0cf17967404c4a1faa3b74ed34e43e62";
+        font-weight: bold;
+      }
+      
+      a {
+        text-decoration: underline;
+        color: #2a5885 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <i class="fas fa-file-invoice-dollar qb-logo"></i>
+        <span class="qb-text">QB Desktop Enterprise</span>
+        <i class="fas fa-plus plus-icon"></i>
+        <i class="fas fa-robot ai-icon"></i>
+      </div>
+      <h1>AI-Driven QuickBooks Automation</h1>
+      <p>Streamlined Purchase Order Processing for Fashion & Beauty</p>
+    </header>
+    
+    <!-- Section 1: Introduction -->
+    <section class="section">
+      <h2>Introduction</h2>
+      <p>Our AI-powered solution automates data extraction from purchase orders and provides seamless integration with QuickBooks Desktop Enterprise.</p>
+      
+      <div class="two-col">
+        <div class="col">
+          <div class="card">
+            <h4><i class="fas fa-exclamation-triangle" style="color: #FF9800;"></i> Current Challenges</h4>
+            <ul class="feature-list">
+              <li>Time-consuming manual data entry</li>
+              <li>Human errors leading to financial discrepancies</li>
+              <li>Inconsistent categorization of items</li>
+              <li>Processing bottlenecks impacting reporting</li>
+              <li>High operational costs for data entry</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <h4><i class="fas fa-chart-line" style="color: #F44336;"></i> Business Impact</h4>
+            <ul class="feature-list">
+              <li>Staff spending hours on low-value tasks</li>
+              <li>Increased accounting reconciliation work</li>
+              <li>Delayed purchase order fulfillment</li>
+              <li>Difficulty scaling during busy periods</li>
+              <li>Higher costs without adding business value</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Section 2: Our Solution -->
+    <section class="section">
+      <h2>Our Solution</h2>
+      <p>AI-Powered Automation That Works For Your Fashion & Beauty Business</p>
+      
+      <div class="two-col">
+        <div class="col">
+          <div class="card">
+            <h4><i class="fas fa-cogs" style="color: #2a5885;"></i> Key Components</h4>
+            <ul class="feature-list">
+              <li>Advanced OCR & text extraction</li>
+              <li>OpenRouter AI with Claude-3-Opus for data parsing</li>
+              <li>Intelligent data validation & enrichment</li>
+              <li>Seamless QuickBooks Desktop integration</li>
+              <li>Comprehensive reporting & analytics</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <h4><i class="fas fa-tshirt" style="color: #FF9800;"></i> Fashion & Beauty Industry Focus</h4>
+            <ul class="feature-list">
+              <li>Specialized for fashion product categorization</li>
+              <li>Beauty product ingredient recognition</li>
+              <li>Vendor matching for industry suppliers</li>
+              <li>Fabric and material-specific term parsing</li>
+              <li>Industry-specific unit handling (yards, kg, etc.)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Section 3: Video Demo -->
+    <section class="section">
+      <h2>Video Demonstration</h2>
+      <h3>Watch the System in Action</h3>
+      
+      <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin-bottom: 30px;">
+        <iframe src="https://www.loom.com/embed/0cf17967404c4a1faa3b74ed34e43e62?sid=891f9f0e-3ab2-4aa8-aebe-9ca67b054277" 
+                frameborder="0" 
+                webkitallowfullscreen 
+                mozallowfullscreen 
+                allowfullscreen 
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        </iframe>
+      </div>
+      
+      <p class="text-center" style="font-style: italic; margin-bottom: 20px;">
+        <strong>Note:</strong> If you're viewing this as a PDF, the video won't be playable directly. 
+        Please visit <a href="https://www.loom.com/share/0cf17967404c4a1faa3b74ed34e43e62?sid=891f9f0e-3ab2-4aa8-aebe-9ca67b054277" style="color: #2a5885; text-decoration: underline;">https://www.loom.com/share/0cf17967404c4a1faa3b74ed34e43e62</a> to watch the full demo video.
+      </p>
+    </section>
+    
+    <!-- Section 4: How It Works -->
+    <section class="section">
+      <h2>How It Works</h2>
+      <h3>Our Streamlined Workflow</h3>
+      
+      <div class="mermaid-container">
+        <div class="mermaid" id="workflow-diagram"></div>
+      </div>
+      
+      <p class="text-center">Each step is optimized for fashion and beauty inventory processing</p>
+      
+      <h3>Technical Architecture</h3>
+      
+      <div class="mermaid-container">
+        <div class="mermaid" id="architecture-diagram"></div>
+      </div>
+      
+      <p class="text-center">State-of-the-art AI integration with business systems</p>
+    </section>
+    
+    <!-- Section 5: Sample Data -->
+    <section class="section">
+      <h2>Sample Purchase Order Data</h2>
+      <h3>Example Fashion Industry PO</h3>
+      
+      <div class="sample-po" id="sample-po"></div>
+      
+      <h3>Processing Steps</h3>
+      <div class="two-col">
+        <div class="col">
+          <div class="card">
+            <h4><i class="fas fa-cog" style="color: #2a5885;"></i> Processing Steps</h4>
+            <ul class="feature-list">
+              <li>OCR and text extraction</li>
+              <li>AI structure parsing via OpenRouter</li>
+              <li>Data validation against business rules</li>
+              <li>Smart category enrichment</li>
+              <li>QuickBooks field mapping</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <h4><i class="fas fa-file-alt" style="color: #2a5885;"></i> Supported File Types</h4>
+            <ul class="feature-list">
+              <li>PDF documents</li>
+              <li>Email attachments</li>
+              <li>Scanned images</li>
+              <li>Plain text files</li>
+              <li>Digital forms</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Section 6: Live Demo -->
+    <section class="section">
+      <h2>System Demo</h2>
+      <h3>Watch the System in Action</h3>
+      
+      <h3>Full Demo Process</h3>
+      
+      <div class="demo-container">
+        <div class="demo-line">═════════════════════════════════════</div>
+        <div class="demo-line">═══ <span class="demo-highlight">QuickBooks PO Automation Demo</span> ═══</div>
+        <div class="demo-line">═════════════════════════════════════</div>
+        <div class="demo-line"></div>
+        <div class="demo-line">Welcome to the QuickBooks PO Automation demo!</div>
+        <div class="demo-line">This demo will show how our <span class="demo-highlight">AI-powered</span> system extracts data from purchase orders</div>
+        <div class="demo-line">and automatically integrates with <span class="demo-highlight">QuickBooks Desktop Enterprise</span>.</div>
+        <div class="demo-line"></div>
+        <div class="demo-line">══════════════════════════════════════════════</div>
+        <div class="demo-line">═══ <span class="demo-highlight">Step 1: Loading Industry-Specific Data</span> ═══</div>
+        <div class="demo-line">══════════════════════════════════════════════</div>
+        <div class="demo-line"></div>
+        <div class="demo-line">Loading fashion & beauty industry expense data...</div>
+        <div class="demo-line">Loaded <span class="demo-output">13</span> expense records in <span class="demo-output">0.01 seconds</span></div>
+        <div class="demo-line"></div>
+        <div class="demo-line">Sample expense categories:</div>
+        <div class="demo-line"><span class="demo-success">  ✓ Inventory: 4 items</span></div>
+        <div class="demo-line"><span class="demo-success">  ✓ Supplies: 2 items</span></div>
+        <div class="demo-line"><span class="demo-success">  ✓ Marketing: 2 items</span></div>
+        <div class="demo-line"><span class="demo-success">  ✓ Equipment: 1 items</span></div>
+        <div class="demo-line"><span class="demo-success">  ✓ Raw Materials: 1 items</span></div>
+        <div class="demo-line"><span class="demo-success">  ✓ Services: 2 items</span></div>
+        <div class="demo-line"><span class="demo-success">  ✓ Logistics: 1 items</span></div>
+        <div class="demo-line"></div>
+        <div class="demo-line">══════════════════════════════════════</div>
+        <div class="demo-line">═══ <span class="demo-highlight">Step 2: AI-Powered Data Extraction</span> ═══</div>
+        <div class="demo-line">══════════════════════════════════════</div>
+        <div class="demo-line"></div>
+        <div class="demo-line">Loading purchase order document...</div>
+        <div class="demo-line"></div>
+        <div class="demo-line">Purchase Order Text Preview:</div>
+        <div class="demo-line">  PURCHASE ORDER</div>
+        <div class="demo-line">  </div>
+        <div class="demo-line">  PO Number: PO-2023-11-01</div>
+        <div class="demo-line">  Date: November 1, 2023</div>
+        <div class="demo-line">  </div>
+        <div class="demo-line">  VENDOR:</div>
+        <div class="demo-line">  LuxuryTextiles International</div>
+        <div class="demo-line">  78 Fashion Avenue</div>
+        <div class="demo-line">  Milan, MI 20121</div>
+        <div class="demo-line">  ...</div>
+        <div class="demo-line"></div>
+        <div class="demo-line">Starting AI-powered data extraction...</div>
+        <div class="demo-line">Extracting data using AI processing...</div>
+        <div class="demo-line">Data extracted in <span class="demo-output">14.97 seconds</span> with <span class="demo-output">95%</span> confidence</div>
+        <div class="demo-line"></div>
+        <div class="demo-line">Extracted Data:</div>
+        <div class="demo-line"><span class="demo-success">  ✓ PO Number: PO-2023-11-01</span></div>
+        <div class="demo-line"><span class="demo-success">  ✓ Date: 2023-11-01</span></div>
+        <div class="demo-line"><span class="demo-success">  ✓ Vendor: LuxuryTextiles International</span></div>
+        <div class="demo-line"><span class="demo-success">  ✓ Items: 3 line items extracted</span></div>
+        <div class="demo-line"><span class="demo-success">  ✓ Total: $16723.16</span></div>
+        <div class="demo-line"></div>
+        <div class="demo-line">════════════════════════════════════════════</div>
+        <div class="demo-line">═══ <span class="demo-highlight">Step 3: Data Validation & Enrichment</span> ═══</div>
+        <div class="demo-line">════════════════════════════════════════════</div>
+        <div class="demo-line"></div>
+        <div class="demo-line">Validating extracted purchase order data...</div>
+        <div class="demo-line">Validation successful! All data meets business requirements.</div>
+        <div class="demo-line"></div>
+        <div class="demo-line">Enriching data with business context...</div>
+        <div class="demo-line"></div>
+        <div class="demo-line">Enriched Categories:</div>
+        <div class="demo-line"><span class="demo-success">  ✓ Premium Italian Silk - Scarlet Red: Raw Materials</span></div>
+        <div class="demo-line"><span class="demo-success">  ✓ Handcrafted French Lace - Ivory: Raw Materials</span></div>
+        <div class="demo-line"><span class="demo-success">  ✓ Cashmere Wool Blend - Midnight Blue: Raw Materials</span></div>
+        <div class="demo-line"></div>
+        <div class="demo-line">══════════════════════════════════════</div>
+        <div class="demo-line">═══ <span class="demo-highlight">Step 4: QuickBooks Integration</span> ═══</div>
+        <div class="demo-line">══════════════════════════════════════</div>
+        <div class="demo-line"></div>
+        <div class="demo-line">Initiating QuickBooks Desktop Enterprise integration...</div>
+        <div class="demo-line">Starting QuickBooks sync process...</div>
+        <div class="demo-line">Finding/creating vendor: LuxuryTextiles International</div>
+        <div class="demo-line">Vendor found/created: LuxuryTextiles International (V-8597)</div>
+        <div class="demo-line">Finding/creating item: Premium Italian Silk - Scarlet Red (LT-SILK-PREMIUM-001)</div>
+        <div class="demo-line">Item found/created: Premium Italian Silk - Scarlet Red (I-2591)</div>
+        <div class="demo-line">Finding/creating item: Handcrafted French Lace - Ivory (LT-LACE-FRENCH-002)</div>
+        <div class="demo-line">Item found/created: Handcrafted French Lace - Ivory (I-6000)</div>
+        <div class="demo-line">Finding/creating item: Cashmere Wool Blend - Midnight Blue (LT-WOOL-CASHMERE-003)</div>
+        <div class="demo-line">Item found/created: Cashmere Wool Blend - Midnight Blue (I-9072)</div>
+        <div class="demo-line">Creating purchase order: PO-2023-11-01</div>
+        <div class="demo-line">PO Details that would be sent to QuickBooks:</div>
+        <div class="demo-line">- PO Number: PO-2023-11-01</div>
+        <div class="demo-line">- Date: 2023-11-01</div>
+        <div class="demo-line">- Vendor ID: V-8597</div>
+        <div class="demo-line">- Items: 3 items</div>
+        <div class="demo-line">- Total: $16723.16</div>
+        <div class="demo-line">Purchase order created in QuickBooks: PO-2023-11-01 (PO-1125)</div>
+        <div class="demo-line">QuickBooks sync completed successfully</div>
+        <div class="demo-line">Purchase order successfully synced with QuickBooks!</div>
+        <div class="demo-line">Created PO #PO-2023-11-01 in QuickBooks (ID: PO-1125)</div>
+        <div class="demo-line"></div>
+        <div class="demo-line">═════════════════════════</div>
+        <div class="demo-line">═══ <span class="demo-highlight">Process Summary</span> ═══</div>
+        <div class="demo-line">═════════════════════════</div>
+        <div class="demo-line"></div>
+        <div class="demo-line">Purchase Order: PO-2023-11-01</div>
+        <div class="demo-line">Vendor: LuxuryTextiles International</div>
+        <div class="demo-line">Total Items: 3</div>
+        <div class="demo-line">Total Amount: $16723.16</div>
+        <div class="demo-line">Extraction Confidence: 95%</div>
+        <div class="demo-line">Processing Time: 21.76 seconds</div>
+        <div class="demo-line">QuickBooks Status: <span class="demo-success">Synced Successfully</span></div>
+      </div>
+    </section>
+    
+    <!-- Section 7: Business Benefits -->
+    <section class="section">
+      <h2>Business Benefits</h2>
+      
+      <div class="two-col">
+        <div class="col">
+          <div class="card">
+            <h4><i class="fas fa-chart-pie" style="color: #4CAF50;"></i> Efficiency Gains</h4>
+            <ul class="feature-list">
+              <li>80% reduction in manual data entry time</li>
+              <li>95% accuracy in data extraction</li>
+              <li>50% reduction in accounting staff workload</li>
+              <li>90% fewer data entry errors</li>
+              <li>Process 5x more purchase orders with same staff</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <h4><i class="fas fa-chess" style="color: #2a5885;"></i> Strategic Advantages</h4>
+            <ul class="feature-list">
+              <li>Focus staff on higher-value activities</li>
+              <li>Faster vendor payment cycles</li>
+              <li>Better inventory management</li>
+              <li>More accurate financial reporting</li>
+              <li>Scale operations without adding headcount</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mermaid-container">
+        <div class="mermaid" id="roi-diagram"></div>
+      </div>
+    </section>
+    
+    <!-- Section 8: Implementation Plan -->
+    <section class="section">
+      <h2>Implementation Plan</h2>
+      <h3>6-Week Implementation Timeline</h3>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4><i class="fas fa-rocket" style="color: #2a5885;"></i><br>Week 1-2</h4>
+          <p>Initial setup & configuration</p>
+        </div>
+        <div class="timeline-item">
+          <h4><i class="fas fa-tools" style="color: #2a5885;"></i><br>Week 3-4</h4>
+          <p>Business customization</p>
+        </div>
+        <div class="timeline-item">
+          <h4><i class="fas fa-vial" style="color: #2a5885;"></i><br>Week 5</h4>
+          <p>Testing & optimization</p>
+        </div>
+        <div class="timeline-item">
+          <h4><i class="fas fa-flag-checkered" style="color: #2a5885;"></i><br>Week 6</h4>
+          <p>Deployment & training</p>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h4><i class="fas fa-clipboard-check" style="color: #4CAF50;"></i> Comprehensive Deliverables</h4>
+        <ul class="feature-list">
+          <li>Fully functional automation workflow for QuickBooks Desktop Enterprise</li>
+          <li>Solution overview and architecture documentation</li>
+          <li>Implementation guide with technical specifications</li>
+          <li>User manual with screenshots and step-by-step instructions</li>
+          <li>Video tutorials for staff training</li>
+        </ul>
+      </div>
+    </section>
+    
+    <!-- Section 9: Call to Action -->
+    <section class="section">
+      <h2>Next Steps</h2>
+      <h3>Transform Your Purchase Order Processing</h3>
+      
+      <div class="card">
+        <h4><i class="fas fa-check-double" style="color: #4CAF50;"></i> Ready to Get Started?</h4>
+        <ul class="feature-list">
+          <li>Schedule a detailed discovery call to assess your specific needs</li>
+          <li>Review a customized implementation plan for your business</li>
+          <li>Start with a pilot project to demonstrate immediate value</li>
+          <li>Finalize integration with your existing QuickBooks system</li>
+          <li>Roll out to your entire operations with full support</li>
+        </ul>
+      </div>
+      
+      <p class="text-center">Contact me with any questions about the demo or how this solution will work in your specific environment.</p>
+      
+      <div class="text-center">
+        <a href="https://www.upwork.com/freelancers/~01dd7ce76f35b71963?viewMode=1" class="cta-button">
+          <i class="fas fa-paper-plane"></i> Get Started Today
+        </a>
+      </div>
+    </section>
+    
+    <!-- Section 10: About the Developer -->
+    <section class="section">
+      <h2>About the Developer</h2>
+      
+      <div style="display: flex; align-items: center; margin-bottom: 20px;">
+        <div style="flex: 1;">
+          <h3>Mark Carpenter</h3>
+          <p style="font-size: 1.1rem; margin-top: 5px;">Full Stack Developer | AI Consultant | Real Estate Innovator</p>
+          <p>Dynamic and results-driven professional with over 10 years of experience in web development, CRM development, Database development, and AI integration. Specialized in creating automation solutions for businesses with a focus on efficiency and scalability.</p>
+        </div>
+        <div style="margin-left: 20px; font-size: 3rem; color: #2a5885;">
+          <i class="fas fa-laptop-code"></i>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h4><i class="fas fa-briefcase" style="color: #2a5885;"></i> Portfolio Highlights</h4>
+        <ul class="feature-list" style="margin-bottom: 0;">
+          <li><strong><a href="https://one52bar.com" target="_blank">One52 Bar</a></strong> - Full stack web application built on NextJS, React and Tailwind CSS with menu and loyalty programs</li>
+          <li><strong><a href="https://freeblog.aireinvestor.com" target="_blank">Freeblog</a></strong> - AI-powered content scaling platform</li>
+          <li><strong><a href="https://aireinvestor.com" target="_blank">AI RE Investor</a></strong> - NextJS app for AI-powered real estate investment assistance</li>
+          <li><strong><a href="https://andrewcrosscoaching.com" target="_blank">Andrew Cross Coaching</a></strong> - Marketing director, website and automation development</li>
+          <li><strong><a href="https://github.com/THE-AI-REAL-ESTATE-INVESTOR/amandas-app-public/tree/pre-production/nextjs-dashboard" target="_blank">Amanda's Party Services</a></strong> - NextJS full stack app for managing party services</li>
+        </ul>
+      </div>
+      
+      <div class="two-col" style="margin-top: 20px;">
+        <div class="col">
+          <div class="card">
+            <h4><i class="fas fa-code" style="color: #2a5885;"></i> Technical Skills</h4>
+            <ul class="feature-list" style="margin-bottom: 0;">
+              <li>Full Stack Development (NextJS, React, TypeScript)</li>
+              <li>AI Integration (OpenAI, Langchain, CrewAI)</li>
+              <li>Database Management (MongoDB, MySQL)</li>
+              <li>DevOps (Docker, Terraform, AWS, GCP)</li>
+              <li>CRM Development & Automation</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <h4><i class="fas fa-project-diagram" style="color: #2a5885;"></i> Specialized In</h4>
+            <ul class="feature-list" style="margin-bottom: 0;">
+              <li>AI Strategy & Implementation</li>
+              <li>Business Process Automation</li>
+              <li>Custom CRM Solutions</li>
+              <li>Data Integration & Management</li>
+              <li>Web & Mobile Application Development</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center" style="margin-top: 30px;">
+        <a href="https://www.upwork.com/freelancers/~01dd7ce76f35b71963?viewMode=1" class="cta-button" style="margin-right: 15px;">
+          <i class="fas fa-user-tie"></i> Hire on Upwork
+        </a>
+        <a href="https://aireinvestor.com" class="cta-button" style="background-color: #4CAF50;">
+          <i class="fas fa-globe"></i> Visit Website
+        </a>
+      </div>
+    </section>
+    
+    <footer>
+      <p>© 2023 QuickBooks PO Automation | AI-powered purchase order automation for fashion and beauty</p>
+    </footer>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize mermaid
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'default',
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        securityLevel: 'loose'
+      });
+
+      // Set up the diagrams
+      if (document.getElementById('workflow-diagram')) {
+        document.getElementById('workflow-diagram').textContent = workflowDiagram;
+      }
+      
+      if (document.getElementById('architecture-diagram')) {
+        document.getElementById('architecture-diagram').textContent = detailedArchitecture;
+      }
+      
+      if (document.getElementById('roi-diagram')) {
+        document.getElementById('roi-diagram').textContent = roiDiagram;
+      }
+      
+      // Add sample PO
+      if (document.getElementById('sample-po')) {
+        document.getElementById('sample-po').textContent = samplePO;
+      }
+      
+      // Render all diagrams
+      mermaid.init(undefined, '.mermaid');
+    });
+  </script>
+</body>
+</html> 
