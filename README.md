@@ -1,5 +1,11 @@
 # QuickBooks PO Automation
 
+## About
+- **What it is:** Demo for an Upwork pitch: extracts purchase orders with AI and creates them in QuickBooks Desktop.
+- **Business:** AIreinvestor (client work)
+- **Status:** inactive since 2025-05
+- **Source:** agent research 2026-11-03, checked by Mark
+
 An AI-powered solution that automates data extraction from purchase orders and seamlessly integrates with QuickBooks Desktop Enterprise.
 
 ## Overview
